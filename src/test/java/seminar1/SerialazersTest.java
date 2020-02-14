@@ -52,9 +52,6 @@ public class SerialazersTest {
         } catch (IOException e) {
             fail();
         }
-
-
     }
-
 
 }
