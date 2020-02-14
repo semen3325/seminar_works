@@ -23,8 +23,8 @@ public class hardSerialazersTest {
 
     @Test
     public void hardserializerEmpty() throws IOException, ClassNotFoundException {
-        Serialazers.serializer(Collections.emptyList(), "hardemptyFile");
-        assertEquals(Collections.emptyList(), Serialazers.deserializer("hardemptyFile"));
+        Serialazers.hardserializer(Collections.emptyList(), "hardemptyFile");
+        assertEquals(Collections.emptyList(), Serialazers.harddeserializer("hardemptyFile"));
     }
 
     @Test
@@ -32,18 +32,18 @@ public class hardSerialazersTest {
         List<Animal> testAnimalList = Arrays.asList(
                 new Animal("Zebra", TypeOfFood.GRASS, 10, Arrays.asList(new Food("Grass", 100))),
                 new Animal("Bug", TypeOfFood.GRASS, 1000, Arrays.asList(new Food("Grass", 50))));
-        Serialazers.serializer(animalList, "hardanimalFile");
-        Serialazers.serializer(testAnimalList, "hardtestanimalFile");
-        assertEquals(animalList, Serialazers.deserializer("hardanimalFile"));
-        assertNotEquals(testAnimalList, Serialazers.deserializer("hardanimalFile"));
-        assertEquals(testAnimalList, Serialazers.deserializer("hardtestanimalFile"));
-        assertNotEquals(animalList, Serialazers.deserializer("hardtestanimalFile"));
+        Serialazers.hardserializer(animalList, "hardanimalFile");
+        Serialazers.hardserializer(testAnimalList, "hardtestanimalFile");
+        assertEquals(animalList, Serialazers.harddeserializer("hardanimalFile"));
+        assertNotEquals(testAnimalList, Serialazers.harddeserializer("hardanimalFile"));
+        assertEquals(testAnimalList, Serialazers.harddeserializer("hardtestanimalFile"));
+        assertNotEquals(animalList, Serialazers.harddeserializer("hardtestanimalFile"));
     }
 
     @Test
     public void hardserializerException() throws ClassNotFoundException {
         try {
-            Serialazers.deserializer("blablabla");
+            Serialazers.harddeserializer("blablabla");
             fail();
         } catch (NoSuchFileException e) {
 
