@@ -5,8 +5,8 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class Singleton {
     private static AtomicReference<Singleton> INSTANCE;
-    final int id;
-    private static final AtomicInteger couinter = new AtomicInteger(0);
+    private final int id;
+    private static final AtomicInteger counter = new AtomicInteger(0);
 
     public int getId() {
         return id;
@@ -16,9 +16,8 @@ public class Singleton {
         this.id = id;
     }
 
-    public static Singleton getSinglton() {
-        INSTANCE.compareAndSet(null, new Singleton(couinter.getAndIncrement()));
-
+    public static Singleton getSingleton() {
+        INSTANCE.compareAndSet(null, new Singleton(counter.getAndIncrement()));
         return INSTANCE.get();
     }
 

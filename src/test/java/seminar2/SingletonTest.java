@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 public class SingletonTest {
-    private static final int nTreads = 1000;
+    private static final int nTreads = 100;
 
     @Test
     public void getSingleton() {
@@ -21,17 +21,23 @@ public class SingletonTest {
         Executor executor = Executors.newFixedThreadPool(nTreads);
         for (int i = 0; i < nTreads; i++) {
             executor.execute(() -> {
+                startCdl.countDown();
                 try {
                     startCdl.await();
                 } catch (InterruptedException e) {
                     //e.printStackTrace();
                     fail();
                 }
-                Singleton singleton = Singleton.getSinglton();
+                Singleton singleton = Singleton.getSingleton();
                 listSet.add(singleton.getId());
                 endCdl.countDown();
+
+
             });
-            startCdl.countDown();
+
+//            if (startCdl.getCount() < 1){
+//                endCdl.countDown();
+//            }
         }
         try {
             endCdl.await();
