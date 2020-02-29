@@ -11,32 +11,35 @@ import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 public class SingletonTest {
+    private static final int nTreads = 1000;
 
     @Test
     public void getSingleton() {
         ConcurrentSkipListSet<Integer> listSet = new ConcurrentSkipListSet<Integer>();
-        CountDownLatch cdl1 = new CountDownLatch(100);
-        CountDownLatch cdl2 = new CountDownLatch(100);
-        Executor executor = Executors.newFixedThreadPool(100);
-        for (int i = 0; i < 100; i++) {
+        CountDownLatch startCdl = new CountDownLatch(nTreads);
+        CountDownLatch endCdl = new CountDownLatch(nTreads);
+        Executor executor = Executors.newFixedThreadPool(nTreads);
+        for (int i = 0; i < nTreads; i++) {
             executor.execute(() -> {
-                listSet.add(Singleton.getSinglton().getId());
-                cdl1.countDown();
                 try {
-                    cdl1.await();
+                    startCdl.await();
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
+                    fail();
                 }
-//                Singleton.getSinglton();
-
+                Singleton singleton = Singleton.getSinglton();
+                listSet.add(singleton.getId());
+                endCdl.countDown();
             });
+            startCdl.countDown();
         }
-        cdl2.countDown();
         try {
-            cdl2.await();
+            endCdl.await();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            fail();
         }
+
         assertEquals(1, listSet.size());
     }
 
