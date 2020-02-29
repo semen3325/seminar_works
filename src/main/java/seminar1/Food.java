@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class Food implements Serializable {
-    private String name;
-    private int count;
+    private final String name;
+    private final int count;
 
     public String getName() {
         return name;

@@ -14,12 +14,13 @@ public class SingletonTest {
 
     @Test
     public void getSingleton() {
-        ConcurrentSkipListSet<Integer> testset = new ConcurrentSkipListSet<Integer>();
-        CountDownLatch cdl1 = new CountDownLatch(10000);
-        CountDownLatch cdl2 = new CountDownLatch(10000);
-        Executor executor = Executors.newFixedThreadPool(10000);
-        for (int i = 0; i < 10000; i++) {
+        ConcurrentSkipListSet<Integer> listSet = new ConcurrentSkipListSet<Integer>();
+        CountDownLatch cdl1 = new CountDownLatch(100);
+        CountDownLatch cdl2 = new CountDownLatch(100);
+        Executor executor = Executors.newFixedThreadPool(100);
+        for (int i = 0; i < 100; i++) {
             executor.execute(() -> {
+                listSet.add(Singleton.getSinglton().getId());
                 cdl1.countDown();
                 try {
                     cdl1.await();
@@ -27,16 +28,16 @@ public class SingletonTest {
                     e.printStackTrace();
                 }
 //                Singleton.getSinglton();
-                testset.add(Singleton.getSinglton().getId());
-                cdl2.countDown();
-                try {
-                    cdl2.await();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+
             });
         }
-        assertEquals(1, testset.size());
+        cdl2.countDown();
+        try {
+            cdl2.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertEquals(1, listSet.size());
     }
 
 }

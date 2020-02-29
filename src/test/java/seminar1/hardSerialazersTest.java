@@ -16,34 +16,34 @@ public class hardSerialazersTest {
             new Animal("Tiger", TypeOfFood.HUMAN, 23, Arrays.asList(new Food("Atmir", 1))));
 
     @Test
-    public void hardserializer() throws IOException, ClassNotFoundException {
-        Serialazers.hardserializer(animalList, "hardanimalFile");
-        assertEquals(animalList, Serialazers.harddeserializer("hardanimalFile"));
+    public void hardSerializer() throws IOException, ClassNotFoundException {
+        Serialazers.hardSerializer(animalList, "hardanimalFile");
+        assertEquals(animalList, Serialazers.hardDeserializer("hardanimalFile"));
     }
 
     @Test
-    public void hardserializerEmpty() throws IOException, ClassNotFoundException {
-        Serialazers.hardserializer(Collections.emptyList(), "hardemptyFile");
-        assertEquals(Collections.emptyList(), Serialazers.harddeserializer("hardemptyFile"));
+    public void hardSerializerEmpty() throws IOException, ClassNotFoundException {
+        Serialazers.hardSerializer(Collections.emptyList(), "hardemptyFile");
+        assertEquals(Collections.emptyList(), Serialazers.hardDeserializer("hardemptyFile"));
     }
 
     @Test
-    public void hardserializerNotEquals() throws IOException, ClassNotFoundException {
+    public void hardSerializerNotEquals() throws IOException, ClassNotFoundException {
         List<Animal> testAnimalList = Arrays.asList(
                 new Animal("Zebra", TypeOfFood.GRASS, 10, Arrays.asList(new Food("Grass", 100))),
                 new Animal("Bug", TypeOfFood.GRASS, 1000, Arrays.asList(new Food("Grass", 50))));
-        Serialazers.hardserializer(animalList, "hardanimalFile");
-        Serialazers.hardserializer(testAnimalList, "hardtestanimalFile");
-        assertEquals(animalList, Serialazers.harddeserializer("hardanimalFile"));
-        assertNotEquals(testAnimalList, Serialazers.harddeserializer("hardanimalFile"));
-        assertEquals(testAnimalList, Serialazers.harddeserializer("hardtestanimalFile"));
-        assertNotEquals(animalList, Serialazers.harddeserializer("hardtestanimalFile"));
+        Serialazers.hardSerializer(animalList, "hardanimalFile");
+        Serialazers.hardSerializer(testAnimalList, "hardtestanimalFile");
+        assertEquals(animalList, Serialazers.hardDeserializer("hardanimalFile"));
+        assertNotEquals(testAnimalList, Serialazers.hardDeserializer("hardanimalFile"));
+        assertEquals(testAnimalList, Serialazers.hardDeserializer("hardtestanimalFile"));
+        assertNotEquals(animalList, Serialazers.hardDeserializer("hardtestanimalFile"));
     }
 
     @Test
-    public void hardserializerException() throws ClassNotFoundException {
+    public void hardSerializerException() throws ClassNotFoundException {
         try {
-            Serialazers.harddeserializer("blablabla");
+            Serialazers.hardDeserializer("blablabla");
             fail();
         } catch (NoSuchFileException e) {
 

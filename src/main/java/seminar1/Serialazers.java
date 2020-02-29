@@ -29,7 +29,7 @@ public class Serialazers {
         return animalList;
     }
 
-    public static void hardserializer(List<Animal> animalList, String nameFile) throws IOException {
+    public static void hardSerializer(List<Animal> animalList, String nameFile) throws IOException {
         Path path = Paths.get(nameFile);
         try (DataOutputStream outputStream =
                      new DataOutputStream(Files.newOutputStream(path))) {
@@ -47,7 +47,7 @@ public class Serialazers {
         }
     }
 
-    public static List<Animal> harddeserializer(String nameFile) throws IOException {
+    public static List<Animal> hardDeserializer(String nameFile) throws IOException {
         Path path = Paths.get(nameFile);
         List<Animal> animalList = new ArrayList<>();
 
@@ -67,9 +67,9 @@ public class Serialazers {
                 for (int j = 0; j < countFood; j++) {
                     String nameFood = inputStream.readUTF();
                     int count = inputStream.readInt();
-                    foodList.add(new Food(nameFood,count));
+                    foodList.add(new Food(nameFood, count));
                 }
-                animalList.add(new Animal(name,type,age,foodList));
+                animalList.add(new Animal(name, type, age, foodList));
             }
         }
         return animalList;
