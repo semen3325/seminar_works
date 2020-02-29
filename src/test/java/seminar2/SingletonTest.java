@@ -25,24 +25,16 @@ public class SingletonTest {
                 try {
                     startCdl.await();
                 } catch (InterruptedException e) {
-                    //e.printStackTrace();
                     fail();
                 }
                 Singleton singleton = Singleton.getSingleton();
                 listSet.add(singleton.getId());
                 endCdl.countDown();
-
-
             });
-
-//            if (startCdl.getCount() < 1){
-//                endCdl.countDown();
-//            }
         }
         try {
             endCdl.await();
         } catch (InterruptedException e) {
-            //e.printStackTrace();
             fail();
         }
 
