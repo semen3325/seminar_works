@@ -15,7 +15,7 @@ public class SingletonTest {
 
     @Test
     public void getSingleton() {
-        ConcurrentSkipListSet<Integer> listSet = new ConcurrentSkipListSet<Integer>();
+        ConcurrentSkipListSet<Integer> listSet = new ConcurrentSkipListSet<>();
         CountDownLatch startCdl = new CountDownLatch(nTreads);
         CountDownLatch endCdl = new CountDownLatch(nTreads);
         Executor executor = Executors.newFixedThreadPool(nTreads);
