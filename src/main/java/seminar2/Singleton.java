@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class Singleton {
-    private static AtomicReference<Singleton> INSTANCE = new AtomicReference<Singleton>();
+    private static AtomicReference<Singleton> INSTANCE = new AtomicReference<>();
     private final int id;
     private static final AtomicInteger counter = new AtomicInteger(0);
 
